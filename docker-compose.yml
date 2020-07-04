@@ -1,0 +1,19 @@
+version: '3.5'
+services:
+  app:
+    image: semantic_segmentation_$APP_MODE
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - APP_PORT=$APP_PORT
+    container_name: semantic_segmentation_app_$APP_MODE
+    volumes:
+      - .:/app
+    environment:
+      APP_PORT: $APP_PORT
+      FLASK_APP: $FLASK_APP
+      FLASK_ENV: $APP_MODE
+    restart: always
+    ports:
+      - "127.0.0.1:$APP_PORT:$APP_PORT"
